@@ -2,23 +2,22 @@ import { useEffect, useState } from "react";
 
 interface OuterItemProps {
   size: number;
+  activeIndex: number;
+  indice: number;
 }
 
-const OuterItem = ({ size }: OuterItemProps) => {
+const OuterItem = ({ size, activeIndex, indice }: OuterItemProps) => {
   const [color, setColor] = useState<string>("#000000");
 
   const generateRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    if (activeIndex === indice) return "#FFFFFF";
+
+    return "red";
   };
 
   useEffect(() => {
     setColor(generateRandomColor());
-  }, []);
+  }, [activeIndex]);
 
   return (
     <div
@@ -28,7 +27,9 @@ const OuterItem = ({ size }: OuterItemProps) => {
         backgroundColor: color,
       }}
       className="col-span-1 row-span-1"
-    />
+    >
+      {indice}
+    </div>
   );
 };
 
